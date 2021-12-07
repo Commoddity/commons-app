@@ -21,7 +21,7 @@ interface AuthLink {
 // Config Objects
 const awsConfig = {
   graphQlEndpoint: process.env.REACT_APP_GRAPHQL_ENDPOINT!,
-  region: process.env.REACT_APP_GRAPHQL_ENDPOINT!,
+  region: process.env.REACT_APP_REGION!,
 };
 
 const apiKeyAuthConfig: AuthLink = {
