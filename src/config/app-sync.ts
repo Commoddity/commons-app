@@ -20,16 +20,15 @@ interface AuthLink {
 
 // Config Objects
 const awsConfig = {
-  graphQlEndpoint:
-    "https://oh2zevyf2zd7tfny2d23npg3ou.appsync-api.ca-central-1.amazonaws.com/graphql",
-  region: "ca-central-1",
+  graphQlEndpoint: process.env.REACT_APP_GRAPHQL_ENDPOINT!,
+  region: process.env.REACT_APP_GRAPHQL_ENDPOINT!,
 };
 
 const apiKeyAuthConfig: AuthLink = {
   url: awsConfig.graphQlEndpoint,
   region: awsConfig.region,
   disableOffline: true,
-  auth: { type: AUTH_TYPE.API_KEY, apiKey: "da2-67ztikq2i5e5ta34crlc7khnem" },
+  auth: { type: AUTH_TYPE.API_KEY, apiKey: process.env.REACT_APP_API_KEY! },
 };
 
 const createLink = ({ auth, region, url }: AuthLink): ApolloLink => {

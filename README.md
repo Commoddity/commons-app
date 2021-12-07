@@ -1,2 +1,3 @@
-# ionic-react-starter
-Ionic Starter Template with React, Tailwind CSS, Typescript, Storybook and latest compatible package versions as of Dec 3, 2021
+# Commons App
+
+Client app for Commons. Utilizes Ionic, Typescript, Tailwind CSS, Storybook, Apollo Client and more.
