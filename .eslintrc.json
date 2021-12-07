@@ -2,7 +2,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "extends": ["plugin:@typescript-eslint/recommended"],
-  "ignorePatterns": ["**/dist/**"],
+  "ignorePatterns": ["**/dist/**", "**/types/**"],
   "rules": {
     "prefer-destructuring": ["error", { "object": true, "array": true }],
     "no-empty": ["error", { "allowEmptyCatch": true }],

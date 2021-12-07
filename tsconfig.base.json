@@ -18,11 +18,13 @@
     "baseUrl": "src",
     "paths": {
       "~atoms": ["./components/atoms"],
+      "~config": ["./config"],
       "~molecules": ["./components/molecules"],
       "~organisms": ["./components/organisms"],
       "~pages": ["./pages/index.tsx"],
       "~pages/*": ["./pages/*"],
-      "~theme/*": ["./theme/*"]
+      "~theme/*": ["./theme/*"],
+      "~types": ["./types"]
     }
   },
   "include": ["src"]
