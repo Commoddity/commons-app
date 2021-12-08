@@ -17,8 +17,8 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
-      "~atoms": ["./components/atoms"],
       "~config": ["./config"],
+      "~atoms": ["./components/atoms"],
       "~molecules": ["./components/molecules"],
       "~organisms": ["./components/organisms"],
       "~pages": ["./pages/index.tsx"],

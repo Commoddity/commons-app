@@ -1,6 +1,16 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+ion-toolbar,
+ion-header {
+  --min-height: 58px;
+}
+
+ion-title,
+ion-buttons {
+  vertical-align: middle;
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/

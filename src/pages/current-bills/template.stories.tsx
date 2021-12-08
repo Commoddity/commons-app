@@ -14,6 +14,6 @@ export const Page = AtomStory.bind({});
 Page.args = {
   parliament: 44,
   setParliament: () => null,
-  session: 0,
+  session: 1,
   setSession: () => null,
 };

@@ -3,6 +3,13 @@
   "description": "Commons API Client App",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "build": "craco build",
+    "start": "craco start",
+    "eslint": "eslint .",
+    "storybook": "export NODE_ENV=development && start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
   "dependencies": {
     "@apollo/client": "^3.5.5",
     "@capacitor/core": "^3.3.2",
@@ -64,13 +71,6 @@
   },
   "resolutions": {
     "babel-loader": "8.1.0"
-  },
-  "scripts": {
-    "build": "craco build",
-    "start": "craco start",
-    "eslint": "eslint .",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [

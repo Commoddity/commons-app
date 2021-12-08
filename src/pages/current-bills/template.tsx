@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { QueryResult } from "@apollo/client";
+
 import {
+  IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonItem,
@@ -8,11 +11,10 @@ import {
   IonList,
   IonListHeader,
   IonPage,
-  IonSelect,
-  IonSelectOption,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { Select } from "~molecules";
 
 import { GetAllBillsForSessionQuery } from "~types";
 
@@ -31,62 +33,56 @@ export const CurrentBillsTemplate: React.FC<CurrentBillsTemplateProps> = ({
   session,
   setSession,
 }) => {
-  const { data, loading } = billsResults || {};
+  const { data, loading, error } = billsResults || {};
+  if (error) console.log(error);
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonHeader collapse="condense" className="fixed">
-          <IonToolbar className="pt-16">
-            <IonTitle size="large">Commons App</IonTitle>
+        <IonHeader className="fixed">
+          <IonToolbar>
+            <IonTitle slot="start" size="large">
+              Commons App
+            </IonTitle>
+            <IonButtons slot="primary">
+              <IonButton color="primary">Button</IonButton>
+            </IonButtons>
           </IonToolbar>
         </IonHeader>
 
-        <IonItem className="mt-12">
-          <IonLabel>Parliament</IonLabel>
-          <IonSelect
-            value={parliament}
-            placeholder="Select One"
-            okText="Okay"
-            cancelText="Dismiss"
-            onIonChange={(event) => setParliament(event.detail.value)}
-          >
-            <IonSelectOption value={44}>44</IonSelectOption>
-            <IonSelectOption value={43}>43</IonSelectOption>
-          </IonSelect>
-        </IonItem>
+        <IonItem className="mt-12"></IonItem>
 
-        <IonItem>
-          <IonLabel>Session</IonLabel>
-          <IonSelect
-            value={session}
-            placeholder="Select One"
-            okText="Okay"
-            cancelText="Dismiss"
-            onIonChange={(event) => setSession(event.detail.value)}
-          >
-            <IonSelectOption value={1}>1</IonSelectOption>
-            <IonSelectOption value={2}>2</IonSelectOption>
-          </IonSelect>
-        </IonItem>
+        <Select
+          options={[44, 43]}
+          value={parliament}
+          label="Parliament"
+          onChange={({ detail }) => setParliament(detail.value)}
+          variant="standard"
+          className="mt-4"
+        />
 
-        {loading && <IonLabel>Loading...</IonLabel>}
+        <Select
+          options={[1, 2]}
+          value={session}
+          label="Session"
+          onChange={({ detail }) => setSession(detail.value)}
+          variant="standard"
+        />
 
         <IonList>
           <IonListHeader>Current Bills</IonListHeader>
-          {data?.bills?.map(
-            ({ NumberCode, LongTitle, billAddedFields: { pageUrl } }, index) => {
-              return (
-                <a href={pageUrl} target="_blank">
-                  <IonItem key={index}>
-                    <IonLabel>
-                      <h2>{NumberCode}</h2>
-                      <p>{LongTitle}</p>
-                    </IonLabel>
-                  </IonItem>
-                </a>
-              );
-            },
-          ) || <></>}
+          {loading && <IonLabel>Loading...</IonLabel>}
+          {data?.bills?.map(({ NumberCode, LongTitle, billAddedFields: { pageUrl } }) => {
+            return (
+              <a href={pageUrl} target="_blank">
+                <IonItem key={NumberCode}>
+                  <IonLabel>
+                    <h2>{NumberCode}</h2>
+                    <p>{LongTitle}</p>
+                  </IonLabel>
+                </IonItem>
+              </a>
+            );
+          }) || <></>}
         </IonList>
       </IonContent>
     </IonPage>
