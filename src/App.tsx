@@ -1,5 +1,4 @@
 import { Redirect, Route } from "react-router-dom";
-import { ApolloProvider } from "@apollo/client";
 import {
   IonApp,
   IonIcon,
@@ -8,14 +7,18 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { ellipse, square, documentTextOutline } from "ionicons/icons";
+import {
+  arrowForwardCircleOutline,
+  documentTextOutline,
+  personOutline,
+} from "ionicons/icons";
 
-import { ApiKeyClient } from "~config";
 import CurrentBills from "./pages/current-bills";
-import Tab2 from "./pages/tab2";
-import Tab3 from "./pages/tab3";
+import SignIn from "./pages/sign-in";
+import Profile from "./pages/profile";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -36,43 +39,44 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+setupIonicReact({ mode: "md" });
+
 const App: React.FC = () => (
-  <ApolloProvider client={ApiKeyClient}>
-    <IonApp>
-      <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route exact path="/current-bills">
-              <CurrentBills />
-            </Route>
-            <Route exact path="/tab2">
-              <Tab2 />
-            </Route>
-            <Route path="/tab3">
-              <Tab3 />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/tab1" />
-            </Route>
-          </IonRouterOutlet>
-          <IonTabBar slot="bottom" className="mv-4">
-            <IonTabButton tab="current-bills" href="/current-bills">
-              <IonIcon icon={documentTextOutline} />
-              <IonLabel>Current Bills</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="tab2" href="/tab2">
-              <IonIcon icon={ellipse} />
-              <IonLabel>Tab 2</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="tab3" href="/tab3">
-              <IonIcon icon={square} />
-              <IonLabel>Tab 3</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
-      </IonReactRouter>
-    </IonApp>
-  </ApolloProvider>
+  <IonApp>
+    <IonReactRouter>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/current-bills">
+            <CurrentBills />
+          </Route>
+          <Route exact path="/sign-in">
+            <SignIn />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/current-bills" />
+          </Route>
+        </IonRouterOutlet>
+
+        <IonTabBar slot="bottom" className="mv-4">
+          <IonTabButton tab="current-bills" href="/current-bills">
+            <IonIcon icon={documentTextOutline} />
+            <IonLabel>Current Bills</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="sign-in" href="/sign-in">
+            <IonIcon icon={arrowForwardCircleOutline} />
+            <IonLabel>Sign In</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/profile">
+            <IonIcon icon={personOutline} />
+            <IonLabel>Profile</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
+    </IonReactRouter>
+  </IonApp>
 );
 
 export default App;

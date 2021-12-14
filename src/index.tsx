@@ -1,15 +1,28 @@
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+
+import Amplify from "aws-amplify";
+import { AuthProvider, amplifyConfig } from "~auth";
+
+import { ApolloProvider } from "@apollo/client";
+import { ApiKeyClient } from "~config";
+
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
 import "./tailwindcss.css";
 
+Amplify.configure(amplifyConfig);
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <StrictMode>
+    <ApolloProvider client={ApiKeyClient}>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ApolloProvider>
+  </StrictMode>,
   document.getElementById("root"),
 );
 

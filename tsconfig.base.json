@@ -14,17 +14,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "strictNullChecks": false,
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
       "~config": ["./config"],
       "~atoms": ["./components/atoms"],
+      "~auth": ["./auth"],
       "~molecules": ["./components/molecules"],
       "~organisms": ["./components/organisms"],
       "~pages": ["./pages/index.tsx"],
       "~pages/*": ["./pages/*"],
       "~theme/*": ["./theme/*"],
-      "~types": ["./types"]
+      "~types": ["./types"],
+      "~utils": ["./utils"]
     }
   },
   "include": ["src"]
