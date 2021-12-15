@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { InputChangeEventDetail } from "@ionic/react";
 import { useFormik, FormikErrors } from "formik";
 
@@ -7,6 +8,8 @@ import { UserUtils } from "~utils";
 import { FormValues, SignInTemplateProps } from "./template";
 
 export const useSignInPage = (): SignInTemplateProps => {
+  const history = useHistory();
+  const navigate = (path: string): void => history.push(`/${path}`);
   const signIn = useSignIn();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -59,6 +62,7 @@ export const useSignInPage = (): SignInTemplateProps => {
     handleChange(event);
 
   return {
+    navigate,
     values,
     errors: { emailAddress: errors.emailAddress, password: errors.password },
     loading,

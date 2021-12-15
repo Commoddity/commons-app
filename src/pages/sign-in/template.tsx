@@ -8,6 +8,7 @@ import {
   IonItem,
   IonLabel,
   IonPage,
+  IonText,
   IonTitle,
   IonToolbar,
   InputChangeEventDetail,
@@ -24,6 +25,7 @@ export interface FormErrorValues {
 }
 
 export type SignInTemplateProps = {
+  navigate: (path: string) => void;
   values: FormValues;
   errors: FormErrorValues;
   loading: boolean;
@@ -70,6 +72,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
             Login
           </IonButton>
         </form>
+        <IonItem lines="none" href="/sign-up">
+          <IonText>Not a member? Sign Up</IonText>
+        </IonItem>
       </IonContent>
     </IonPage>
   );

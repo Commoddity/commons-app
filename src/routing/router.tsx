@@ -14,46 +14,55 @@ import {
   personOutline,
 } from "ionicons/icons";
 
+import { useUser } from "~auth";
+
 import CurrentBills from "../pages/current-bills";
 import SignIn from "../pages/sign-in";
 import SignUp from "../pages/sign-up";
 import Profile from "../pages/profile";
 
-export default (): JSX.Element => (
-  <IonReactRouter>
-    <IonTabs>
-      <IonRouterOutlet>
-        <Route exact path="/current-bills">
-          <CurrentBills />
-        </Route>
-        <Route exact path="/sign-in">
-          <SignIn />
-        </Route>
-        <Route exact path="/sign-up">
-          <SignUp />
-        </Route>
-        <Route path="/profile">
-          <Profile />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/current-bills" />
-        </Route>
-      </IonRouterOutlet>
+export default (): JSX.Element => {
+  const user = useUser();
 
-      <IonTabBar slot="bottom" className="mv-4">
-        <IonTabButton tab="current-bills" href="/current-bills">
-          <IonIcon icon={documentTextOutline} />
-          <IonLabel>Current Bills</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="sign-in" href="/sign-in">
-          <IonIcon icon={arrowForwardCircleOutline} />
-          <IonLabel>Sign In</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="tab3" href="/profile">
-          <IonIcon icon={personOutline} />
-          <IonLabel>Profile</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
-    </IonTabs>
-  </IonReactRouter>
-);
+  return (
+    <IonReactRouter>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/current-bills">
+            <CurrentBills />
+          </Route>
+          <Route exact path="/sign-in">
+            <SignIn />
+          </Route>
+          <Route exact path="/sign-up">
+            <SignUp />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/current-bills" />
+          </Route>
+        </IonRouterOutlet>
+
+        <IonTabBar slot="bottom" className="mv-4">
+          <IonTabButton tab="current-bills" href="/current-bills">
+            <IonIcon icon={documentTextOutline} />
+            <IonLabel>Current Bills</IonLabel>
+          </IonTabButton>
+          {user ? (
+            <IonTabButton tab="tab3" href="/profile">
+              <IonIcon icon={personOutline} />
+              <IonLabel>Profile</IonLabel>
+            </IonTabButton>
+          ) : (
+            <IonTabButton tab="sign-in" href="/sign-in">
+              <IonIcon icon={arrowForwardCircleOutline} />
+              <IonLabel>Sign In</IonLabel>
+            </IonTabButton>
+          )}
+        </IonTabBar>
+      </IonTabs>
+    </IonReactRouter>
+  );
+};
