@@ -40,8 +40,6 @@ export const useSignUpPage = (): SignUpTemplateProps => {
       errors.confirmPassword = "Password confirmation must match password";
     }
 
-    console.log({ errors });
-
     return errors;
   };
   const { values, errors, handleChange, handleSubmit, setFieldError } = useFormik({
@@ -55,13 +53,11 @@ export const useSignUpPage = (): SignUpTemplateProps => {
     validate,
     validateOnChange: false,
     onSubmit: async (values: SignUpInput) => {
-      console.log({ values });
       try {
         setLoading(true);
         await signUp(values);
       } catch (error: any) {
         setLoading(false);
-        console.log({ error });
         if (error.code === "NotAuthorizedException") {
           setFieldError("emailAddress", "Invalid email address or password");
         } else {

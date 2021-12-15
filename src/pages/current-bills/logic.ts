@@ -9,7 +9,5 @@ export const useCurrentBillsPage = (): CurrentBillsTemplateProps => {
 
   const billsResults = useBills({ variables: { parliament, session } });
 
-  console.log(billsResults);
-
   return { billsResults, parliament, setParliament, session, setSession };
 };

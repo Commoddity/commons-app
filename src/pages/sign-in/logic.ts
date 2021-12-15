@@ -38,7 +38,6 @@ export const useSignInPage = (): SignInTemplateProps => {
     validate,
     validateOnChange: false,
     onSubmit: async (values: SignInInput) => {
-      console.log({ values });
       try {
         setLoading(true);
         await signIn(values);

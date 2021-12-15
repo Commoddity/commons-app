@@ -42,14 +42,11 @@ export function useAuth(): AuthState {
 
   const signUp = useCallback(
     async ({ emailAddress, firstName, lastName, password }: SignUpInput) => {
-      console.log("FIRING!!!!");
-      const { user } = await Auth.signUp({
+      await Auth.signUp({
         username: emailAddress.trim(),
         password: password.trim(),
         attributes: { family_name: lastName.trim(), given_name: firstName.trim() },
       });
-      console.log({ user });
-      return user;
     },
     [],
   );
