@@ -6,9 +6,18 @@ const hasEmojis = (name: string): boolean => {
   const regex = emojiRegex();
   return !!name.match(regex);
 };
+const hasOnlyCompatibleCharacters = (name: string): boolean => {
+  const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9 \-]*$/i;
+  return !!name.match(regex);
+};
 
 export class UserUtils {
-  static isValidUsername(username: string): boolean {
+  static isValidName(username: string): boolean {
+    const trimmedUsername = username.trim();
+    return hasOnlyCompatibleCharacters(trimmedUsername) && !hasEmojis(trimmedUsername);
+  }
+
+  static isValidEmail(username: string): boolean {
     const trimmedUsername = username.trim();
     return isEmail(trimmedUsername) && !hasEmojis(trimmedUsername);
   }

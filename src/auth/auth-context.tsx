@@ -1,17 +1,21 @@
 import { createContext } from "react";
 
 import { useAuth } from "./auth-hooks";
-import { SignInInput } from "./types";
+import { SignInInput, SignUpInput } from "./types";
 
 export interface AuthState {
   user: string | undefined;
   signIn(input: SignInInput): Promise<any>;
+  signUp(input: SignUpInput): Promise<any>;
   signOut(): Promise<void>;
 }
 
 export const AuthContext = createContext<AuthState>({
   user: undefined,
   signIn: async (_input) => {
+    /* Initial State */
+  },
+  signUp: async (_input) => {
     /* Initial State */
   },
   signOut: async () => {

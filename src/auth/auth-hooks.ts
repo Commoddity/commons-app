@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import Auth from "@aws-amplify/auth";
 import SecureLS from "secure-ls";
 
-import { SignInInput } from "./types";
+import { SignInInput, SignUpInput } from "./types";
 import { AuthContext, AuthState } from "./auth-context";
 
 const encryptedLocalStorage = new SecureLS();
@@ -40,13 +40,27 @@ export function useAuth(): AuthState {
     [setAdminUser],
   );
 
+  const signUp = useCallback(
+    async ({ emailAddress, firstName, lastName, password }: SignUpInput) => {
+      console.log("FIRING!!!!");
+      const { user } = await Auth.signUp({
+        username: emailAddress.trim(),
+        password: password.trim(),
+        attributes: { family_name: lastName.trim(), given_name: firstName.trim() },
+      });
+      console.log({ user });
+      return user;
+    },
+    [],
+  );
+
   const signOut = useCallback(async () => {
     await Auth.signOut();
     setAdminUser(undefined);
     encryptedLocalStorage.remove("admin-user");
   }, [setAdminUser]);
 
-  return { user, signIn, signOut };
+  return { user, signIn, signUp, signOut };
 }
 
 /* Use the below hooks as needed for auth operations through the app. */
@@ -61,6 +75,10 @@ export function useUser(): string | undefined {
 
 export function useSignIn(): (input: SignInInput) => Promise<any> {
   return useContext(AuthContext).signIn;
+}
+
+export function useSignUp(): (input: SignUpInput) => Promise<any> {
+  return useContext(AuthContext).signUp;
 }
 
 export function useSignOut(): () => Promise<void> {

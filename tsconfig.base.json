@@ -23,8 +23,8 @@
       "~auth": ["./auth"],
       "~molecules": ["./components/molecules"],
       "~organisms": ["./components/organisms"],
-      "~pages": ["./pages/index.tsx"],
       "~pages/*": ["./pages/*"],
+      "~routing": ["./routing"],
       "~theme/*": ["./theme/*"],
       "~types": ["./types"],
       "~utils": ["./utils"]

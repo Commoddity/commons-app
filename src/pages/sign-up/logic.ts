@@ -2,12 +2,12 @@ import { useState } from "react";
 import { InputChangeEventDetail } from "@ionic/react";
 import { useFormik, FormikErrors } from "formik";
 
-import { SignInInput, useSignIn } from "~auth";
+import { SignUpInput, useSignUp } from "~auth";
 import { UserUtils } from "~utils";
-import { FormValues, SignInTemplateProps } from "./template";
+import { FormValues, SignUpTemplateProps } from "./template";
 
-export const useSignInPage = (): SignInTemplateProps => {
-  const signIn = useSignIn();
+export const useSignUpPage = (): SignUpTemplateProps => {
+  const signUp = useSignUp();
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -19,34 +19,50 @@ export const useSignInPage = (): SignInTemplateProps => {
     } else if (!UserUtils.isValidEmail(values.emailAddress)) {
       errors.emailAddress = "Invalid email address";
     }
+    if (!values.firstName) {
+      errors.firstName = "First name is required";
+    } else if (!UserUtils.isValidName(values.firstName)) {
+      errors.firstName = "First name contains invalid characters";
+    }
+    if (!values.lastName) {
+      errors.lastName = "Last name is required";
+    } else if (!UserUtils.isValidName(values.lastName)) {
+      errors.lastName = "Last name contains invalid characters";
+    }
     if (!values.password) {
       errors.password = "Password is required";
     } else if (!UserUtils.isValidPassword(values.password)) {
       errors.password = "Invalid password";
     }
+    if (!values.confirmPassword) {
+      errors.confirmPassword = "Password confirmation is required";
+    } else if (values.password !== values.confirmPassword) {
+      errors.confirmPassword = "Password confirmation must match password";
+    }
+
+    console.log({ errors });
 
     return errors;
   };
   const { values, errors, handleChange, handleSubmit, setFieldError } = useFormik({
     initialValues: {
       emailAddress: "",
+      firstName: "",
+      lastName: "",
       password: "",
+      confirmPassword: "",
     },
     validate,
     validateOnChange: false,
-    onSubmit: async (values: SignInInput) => {
+    onSubmit: async (values: SignUpInput) => {
       console.log({ values });
       try {
         setLoading(true);
-        await signIn(values);
+        await signUp(values);
       } catch (error: any) {
         setLoading(false);
-        if (
-          error.code === "NotAuthorizedException" &&
-          error.message === "User is disabled."
-        ) {
-          setFieldError("emailAddress", "Your account is awaiting approval.");
-        } else if (error.code === "NotAuthorizedException") {
+        console.log({ error });
+        if (error.code === "NotAuthorizedException") {
           setFieldError("emailAddress", "Invalid email address or password");
         } else {
           setFieldError("emailAddress", "Something went wrong");
@@ -60,7 +76,13 @@ export const useSignInPage = (): SignInTemplateProps => {
 
   return {
     values,
-    errors: { emailAddress: errors.emailAddress, password: errors.password },
+    errors: {
+      emailAddress: errors.emailAddress,
+      firstName: errors.firstName,
+      lastName: errors.lastName,
+      password: errors.password,
+      confirmPassword: errors.confirmPassword,
+    },
     loading,
     handleInputChange,
     handleSubmit,
